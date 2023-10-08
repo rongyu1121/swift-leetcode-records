@@ -31,7 +31,7 @@ class StockSpanner {
  * let ret_1: Int = obj.next(price)
  */
 ```
-#### 设计数据机构
+#### 设计数据结构
 
 ##### [2034. 股票价格波动](https://leetcode.cn/problems/stock-price-fluctuation/description/?envType=daily-question&envId=2023-10-08)
 
