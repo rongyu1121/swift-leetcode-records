@@ -31,5 +31,50 @@ class StockSpanner {
  * let ret_1: Int = obj.next(price)
  */
 ```
+#### 设计数据机构
+
+##### [2034. 股票价格波动](https://leetcode.cn/problems/stock-price-fluctuation/description/?envType=daily-question&envId=2023-10-08)
+
+> 关键是取 current 要是O(1) 才行
+
+``` swift
+class StockPrice {
+    var curt = 0
+    var dic: [Int: Int]
+    init() {
+        dic = [:]
+    }
+    
+    func update(_ timestamp: Int, _ price: Int) {
+        if dic[timestamp] == nil {
+            dic[timestamp] = price
+        } else {
+            dic[timestamp]! = price
+        }
+        curt = max(curt, timestamp)
+    }
+    
+    func current() -> Int {
+        return dic[curt]!
+    }
+    
+    func maximum() -> Int {
+        return dic.values.max()!
+    }
+    
+    func minimum() -> Int {
+        return dic.values.min()!
+    }
+}
+
+/**
+ * Your StockPrice object will be instantiated and called as such:
+ * let obj = StockPrice()
+ * obj.update(timestamp, price)
+ * let ret_2: Int = obj.current()
+ * let ret_3: Int = obj.maximum()
+ * let ret_4: Int = obj.minimum()
+ */
+```
 
 
