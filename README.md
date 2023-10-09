@@ -77,4 +77,38 @@ class StockPrice {
  */
 ```
 
+#### 双指针
+
+##### [345. 反转字符串中的元音字母](https://leetcode.cn/problems/reverse-vowels-of-a-string/description/)
+
+> 双指针+交换方法
+
+``` swift
+class Solution {
+    func reverseVowels(_ s: String) -> String {
+        if s.count == 0 {
+            return s
+        }
+        let aset: Set<Character> = ["a", "e", "i", "o", "u", "A", "E", "I", "O", "U"]
+        var arr = Array(s)
+        var left = 0, right = s.count - 1
+        while left < right {
+            if !aset.contains(arr[left]) {
+                left += 1
+                continue
+            }
+            if !aset.contains(arr[right]) {
+                right -= 1
+                continue
+            }
+            arr.swapAt(left, right)
+            left += 1
+            right -= 1
+        }
+        return String(arr)
+    }
+}
+```
+
+
 
