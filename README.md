@@ -110,5 +110,32 @@ class Solution {
 }
 ```
 
+#### 脑筋急转弯
+
+##### [2731. 移动机器人](https://leetcode.cn/problems/movement-of-robots/description/)
+
+> 机器人都相同，对撞考虑成穿过，忽略对撞，只计算d秒后的每个坐标位置。再排序后计算两两坐标距离之和
+
+``` swift
+class Solution {
+    func sumDistance(_ nums: [Int], _ s: String, _ d: Int) -> Int {
+        var n = nums
+        let arrS = Array(s)
+        for i in 0..<nums.count {
+            n[i] += arrS[i] == "R" ? d : -d
+        }
+        n.sort()
+
+        var ans = 0, sum = 0
+        for i in 0..<nums.count {
+            // 1e9 值是Double类型，要转换成Int
+            ans = (ans + i*n[i] - sum) % (Int(1e9)+7)
+            sum += n[i]
+        }
+        return ans
+    }
+}
+```
+
 
 
