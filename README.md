@@ -110,6 +110,35 @@ class Solution {
 }
 ```
 
+##### [611. 有效三角形的个数](https://leetcode.cn/problems/valid-triangle-number/description/)
+
+> 双指针
+
+``` swift
+class Solution {
+    func triangleNumber(_ nums: [Int]) -> Int {
+        if nums.count < 3 {
+            return 0
+        }
+        let n = nums.sorted()
+        var count = 0
+        for i in 2..<n.count {
+
+            var left = 0, right = i-1
+            while left < right {
+                if n[right] + n[left] > n[i] {
+                    count += (right - left)
+                    right -= 1
+                } else {
+                    left += 1
+                }
+            }
+        }
+        return count
+    }
+}
+```
+
 #### 脑筋急转弯
 
 ##### [2731. 移动机器人](https://leetcode.cn/problems/movement-of-robots/description/)
