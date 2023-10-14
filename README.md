@@ -137,5 +137,48 @@ class Solution {
 }
 ```
 
+#### 贪心
+
+##### [1488. 避免洪水泛滥](https://leetcode.cn/problems/avoid-flood-in-the-city/description/)
+
+> arr存储晴天的天数，抽水优先在上一个该湖泊下雨日期之后的晴天抽，晴天的ans[i] = 1，是随便抽的一个，也可以写成其他值
+
+``` swift
+class Solution {
+    func avoidFlood(_ rains: [Int]) -> [Int] {
+        var dic: [Int: Int] = [:]
+        var arr: [Int] = []
+        var ans = Array(repeating: -1, count: rains.count)
+
+        for i in 0..<rains.count {
+            if rains[i] == 0 {
+                arr.append(i)
+                ans[i] = 1
+                continue
+            }
+
+            if dic[rains[i]] != nil {
+                let index = dic[rains[i]]!
+                var firstIndex = -1
+                for item in arr {
+                    if item > index {
+                        firstIndex = item
+                        break
+                    }
+                }
+                if firstIndex == -1 {
+                    return []
+                }
+                ans[firstIndex] = rains[i]
+                arr.remove(at: arr.firstIndex(of:firstIndex)!)
+            }
+
+            dic[rains[i]] = i
+        }
+        return ans
+    }
+}
+```
+
 
 
