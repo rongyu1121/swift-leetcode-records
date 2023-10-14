@@ -209,5 +209,34 @@ class Solution {
 }
 ```
 
+#### 前后缀（最大、最小值）
 
+##### [42. 接雨水](https://leetcode.cn/problems/trapping-rain-water/description/)
+
+> 算出前后缀最大值，当前柱子能接到的水就是前后缀最大值中的最小值减去柱子高度
+
+``` swift
+class Solution {
+    func trap(_ height: [Int]) -> Int {
+        let len = height.count
+        var arr1 = Array(repeating: 0, count: len)
+        var arr2 = Array(repeating: 0, count: len)
+
+        arr1[0] = height[0]
+        for i in 1..<len {
+            arr1[i] = max(height[i], arr1[i-1])
+        }
+
+        arr2[len-1] = height[len-1]
+        for i in (0..<len-1).reversed() {
+            arr2[i] = max(height[i], arr2[i+1])
+        }
+        var ans = 0
+        for i in 0..<len {
+            ans += min(arr1[i], arr2[i]) - height[i]
+        }
+        return ans
+    }
+}
+```
 
