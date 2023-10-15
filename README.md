@@ -240,6 +240,41 @@ class Solution {
 }
 ```
 
+##### [100101. 找出满足差值条件的下标 II](https://leetcode.cn/problems/find-indices-with-index-and-value-difference-ii/description/)
+
+> 记录一段距离之前的前缀最大、最小值的下标
+
+``` swift
+class Solution {
+    func findIndices(_ nums: [Int], _ indexDifference: Int, _ valueDifference: Int) -> [Int] {
+        if indexDifference > nums.count {
+            return [-1,-1]
+        }
+
+        let n = nums.count
+        var minIndex = 0
+        var maxIndex = 0
+
+        for i in indexDifference..<n {
+            let j = i - indexDifference
+            if nums[j] < nums[minIndex] {
+                minIndex = j
+            }
+            if nums[j] > nums[maxIndex] {
+                maxIndex = j
+            }
+            if abs(nums[i] - nums[minIndex]) >= valueDifference{
+                return [minIndex, i]
+            }
+            if abs(nums[i] - nums[maxIndex]) >= valueDifference{
+                return [maxIndex, i]
+            }
+        }
+        return [-1,-1]
+    }
+}
+```
+
 #### 位运算
 
 ##### [137. 只出现一次的数字 II](https://leetcode.cn/problems/single-number-ii/description/)
