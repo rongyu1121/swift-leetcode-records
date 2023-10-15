@@ -240,3 +240,25 @@ class Solution {
 }
 ```
 
+#### 位运算
+
+##### [137. 只出现一次的数字 II](https://leetcode.cn/problems/single-number-ii/description/)
+
+> 统计出每个数的相同二进制位中1的个数，对3求余
+
+``` swift
+class Solution {
+    func singleNumber(_ nums: [Int]) -> Int {
+        var ans = 0
+        for i in 0..<64 {
+            var cnt = 0
+            for item in nums {
+                cnt += ((item >> i) & 1)
+            }
+            ans |= ((cnt % 3) << i)
+        }
+        return ans
+    }
+}
+```
+
