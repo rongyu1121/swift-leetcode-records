@@ -1,7 +1,7 @@
 # swift-leetcode-records
 力扣算法解题记录，Swift语言实现
 
-#### 单调栈
+#### 1、单调栈
 
 ##### [901. 股票价格跨度](https://leetcode.cn/problems/online-stock-span/description/)
 
@@ -31,7 +31,7 @@ class StockSpanner {
  * let ret_1: Int = obj.next(price)
  */
 ```
-#### 设计数据结构
+#### 2、设计数据结构
 
 ##### [2034. 股票价格波动](https://leetcode.cn/problems/stock-price-fluctuation/description/?envType=daily-question&envId=2023-10-08)
 
@@ -77,7 +77,7 @@ class StockPrice {
  */
 ```
 
-#### 双指针
+#### 3、双指针
 
 ##### [345. 反转字符串中的元音字母](https://leetcode.cn/problems/reverse-vowels-of-a-string/description/)
 
@@ -139,7 +139,7 @@ class Solution {
 }
 ```
 
-#### 脑筋急转弯
+#### 4、脑筋急转弯
 
 ##### [2731. 移动机器人](https://leetcode.cn/problems/movement-of-robots/description/)
 
@@ -166,7 +166,7 @@ class Solution {
 }
 ```
 
-#### 贪心
+#### 5、贪心
 
 ##### [1488. 避免洪水泛滥](https://leetcode.cn/problems/avoid-flood-in-the-city/description/)
 
@@ -209,7 +209,7 @@ class Solution {
 }
 ```
 
-#### 前后缀（最大、最小值）
+#### 6、前后缀（最大、最小值）
 
 ##### [42. 接雨水](https://leetcode.cn/problems/trapping-rain-water/description/)
 
@@ -275,7 +275,7 @@ class Solution {
 }
 ```
 
-#### 位运算
+#### 7、位运算
 
 ##### [137. 只出现一次的数字 II](https://leetcode.cn/problems/single-number-ii/description/)
 
@@ -292,6 +292,34 @@ class Solution {
             }
             ans |= ((cnt % 3) << i)
         }
+        return ans
+    }
+}
+```
+
+#### 8、滑动窗口
+
+##### [1456. 定长子串中元音的最大数目](https://leetcode.cn/problems/maximum-number-of-vowels-in-a-substring-of-given-length/description/)
+
+> 一边滑一边记录，左出右进之后，元音字符有没有增加
+
+``` swift
+class Solution {
+    func maxVowels(_ s: String, _ k: Int) -> Int {
+        let arr = Array(s)
+        let aset: Set<Character> = ["a","e","i","o","u"]
+        var ans = Array(arr[0..<k]).filter {aset.contains($0)}.count
+    
+        var left = 1
+        var count = ans
+        while left <= arr.count-k {
+            let l = aset.contains(arr[left-1]) ? 1 : 0
+            let r = aset.contains(arr[left+k-1]) ? 1 : 0
+            count += r-l
+            ans = max(ans, count)
+            left += 1
+        }
+        
         return ans
     }
 }
