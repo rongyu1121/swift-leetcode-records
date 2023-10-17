@@ -349,3 +349,49 @@ class Solution {
 }
 ```
 
+##### [1004. 最大连续1的个数 III](https://leetcode.cn/problems/max-consecutive-ones-iii/description/)
+
+> 记录0的个数 <=k 时的最大窗口距离，当个数大于k，就从左边移出一个
+
+``` swift
+class Solution {
+    func longestOnes(_ nums: [Int], _ k: Int) -> Int {
+        var ans = 0
+        var cnt0 = 0
+        var left = 0
+        for i in 0..<nums.count {
+            cnt0 += 1 - nums[i]
+            while cnt0 > k {
+                cnt0 -= 1 - nums[left]
+                left += 1
+            }
+            ans = max(ans, i - left + 1)
+        }
+        return ans
+    }
+}
+```
+
+##### [209. 长度最小的子数组](https://leetcode.cn/problems/minimum-size-subarray-sum/description/)
+
+> 当>=target 时，记录最小区间，同时左指针右移
+
+``` swift
+class Solution {
+    func minSubArrayLen(_ target: Int, _ nums: [Int]) -> Int {
+        var ans = nums.count + 1
+        var s = 0
+        var left = 0
+        for i in 0..<nums.count {
+            s += nums[i]
+            while s >= target {
+                ans = min(ans, i - left + 1)
+                s -= nums[left]
+                left += 1
+            }
+        }
+        return ans <= nums.count ? ans : 0
+    }
+}
+```
+
