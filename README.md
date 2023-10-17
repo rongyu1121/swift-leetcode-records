@@ -31,6 +31,30 @@ class StockSpanner {
  * let ret_1: Int = obj.next(price)
  */
 ```
+
+##### [739. 每日温度](https://leetcode.cn/problems/daily-temperatures/description/)
+
+> 栈中记录还没算出下一个更大元素的数的下标
+
+``` swift
+class Solution {
+    func dailyTemperatures(_ temperatures: [Int]) -> [Int] {
+        // [73,74,75,71,69,72,76,73]
+        var ans = Array(repeating: 0, count: temperatures.count)
+        var arr: [Int] = []
+        for i in 0..<temperatures.count {
+            let item = temperatures[i]
+            while !arr.isEmpty, item > temperatures[arr.last!] {
+                let j = arr.popLast()!
+                ans[j] = i - j
+            }
+            arr.append(i)
+        }
+        return ans
+    }
+}
+```
+
 #### 2、设计数据结构
 
 ##### [2034. 股票价格波动](https://leetcode.cn/problems/stock-price-fluctuation/description/?envType=daily-question&envId=2023-10-08)
