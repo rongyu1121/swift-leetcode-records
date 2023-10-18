@@ -101,6 +101,56 @@ class StockPrice {
  */
 ```
 
+##### [2530. 执行 K 次操作后的最大分数](https://leetcode.cn/problems/maximal-score-after-applying-k-operations/description/)
+
+> Swift 没有堆的结构，需要自己实现。堆的概念，参考 [这个链接](https://zhuanlan.zhihu.com/p/399460271)。例如最大堆，数组不一定是有序的，但能保证左右子节点都比父节点小就可以了。
+
+``` swift
+
+class Solution {
+    func maxKelements(_ nums: [Int], _ k: Int) -> Int {
+        var mNums = nums
+        heapify(&mNums)
+        var ans = 0
+        for _ in 0..<k {
+            ans += mNums[0]
+            mNums[0] = (mNums[0] + 2) / 3
+            skin(&mNums, 0)
+        }
+        return ans
+    }
+
+    func heapify(_ nums: inout [Int]) {
+        // 1个数不用执行下沉
+        guard nums.count > 1 else {
+            return
+        }
+        // 非叶子节点可以下沉，例如4层结构满叶子，叶子是8非叶子是7，非叶子下标最大是6
+        // 反向遍历，肯定能将最大值带到下标0的位置
+        for i in (0...nums.count/2 - 1).reversed() {
+            skin(&nums, i)
+        }
+    }
+    func skin(_ nums: inout [Int], _ l: Int) {
+        let n = nums.count
+        var i = l
+        while 2 * i + 1 < n {
+            var j = 2 * i + 1
+            if j + 1 < n, nums[j+1] > nums[j] {
+                j += 1
+            }
+            // 上面2步是找出左右儿子哪个大，最大的儿子都比nums[i]小，就结束下沉了
+            if nums[j] <= nums[i] {
+                break
+            }
+            // 有儿子比父亲nums[i]大，执行下沉，也就是父子交换
+            nums.swapAt(i, j)
+            i = j
+        }
+    }
+}
+```
+
 #### 3、双指针
 
 ##### [345. 反转字符串中的元音字母](https://leetcode.cn/problems/reverse-vowels-of-a-string/description/)
