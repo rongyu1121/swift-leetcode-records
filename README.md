@@ -445,3 +445,31 @@ class Solution {
 }
 ```
 
+#### 9、哈希表
+
+##### [1726. 同积元组](https://leetcode.cn/problems/tuple-with-same-product/description/)
+
+> 把所有可能乘积记录下来，累加每种乘积的组合数，再对每种答案*8
+
+``` swift
+class Solution {
+    func tupleSameProduct(_ nums: [Int]) -> Int {
+        var dic: [Int: Int] = [:]
+        for i in 0..<nums.count {
+            for j in i+1..<nums.count {
+                if dic[nums[i]*nums[j]] == nil {
+                    dic[nums[i]*nums[j]] = 1
+                } else {
+                    dic[nums[i]*nums[j]]! += 1
+                }
+            }
+        }
+        var ans = 0
+        for (key, val) in dic {
+            ans += val * (val - 1) / 2
+        }
+        return ans * 8
+    }
+}
+```
+
