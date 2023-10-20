@@ -213,6 +213,37 @@ class Solution {
 }
 ```
 
+##### [2095. 删除链表的中间节点](https://leetcode.cn/problems/delete-the-middle-node-of-a-linked-list/description/)
+
+> 快慢指针，从哨兵节点开始遍历
+
+``` swift
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     public var val: Int
+ *     public var next: ListNode?
+ *     public init() { self.val = 0; self.next = nil; }
+ *     public init(_ val: Int) { self.val = val; self.next = nil; }
+ *     public init(_ val: Int, _ next: ListNode?) { self.val = val; self.next = next; }
+ * }
+ */
+class Solution {
+    func deleteMiddle(_ head: ListNode?) -> ListNode? {
+        let dummy: ListNode? = ListNode(-1)
+        var fast = dummy
+        var slow = dummy
+        dummy!.next = head
+        while fast?.next != nil, fast?.next?.next != nil {
+            fast = fast?.next?.next
+            slow = slow?.next
+        }
+        slow?.next = slow?.next?.next
+        return dummy?.next
+    }
+}
+```
+
 #### 4、脑筋急转弯
 
 ##### [2731. 移动机器人](https://leetcode.cn/problems/movement-of-robots/description/)
