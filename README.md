@@ -504,3 +504,44 @@ class Solution {
 }
 ```
 
+#### 10、图
+
+##### [2316. 统计无向图中无法互相到达点对数](https://leetcode.cn/problems/count-unreachable-pairs-of-nodes-in-an-undirected-graph/description/)
+
+> 无向图、建图、连通块
+
+``` swift
+class Solution {
+    func countPairs(_ n: Int, _ edges: [[Int]]) -> Int {
+       var g = Array(repeating: [Int](), count: n)
+       for item in edges {
+           g[item[0]].append(item[1])
+           g[item[1]].append(item[0]) 
+       }//建图
+
+       var vis = Array(repeating: false, count: n)
+
+       func dfs(_ x: Int) -> Int {
+           vis[x] = true
+           var size = 1
+           for item in g[x] {
+               if !vis[item] {
+                   size += dfs(item)
+               }
+           }
+           return size
+       }//得到连通块的大小
+
+       var ans = 0, total = 0
+       for i in 0..<n {
+           if !vis[i] {
+               var size = dfs(i)
+               ans += size * total
+               total += size
+           }
+       }//每个新的连通块的大小*前面得到块的大小和
+       return ans
+    }
+}
+```
+
