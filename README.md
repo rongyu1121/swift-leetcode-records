@@ -1,5 +1,5 @@
 # swift-leetcode-records
-力扣算法解题记录，Swift语言实现，记录不会做的题/会做但有更好解法的题
+力扣算法解题记录，Swift语言实现，记录不会做的题&会做但有更好解法的题
 
 #### 1、单调栈
 
@@ -308,6 +308,29 @@ class Solution {
             }
 
             dic[rains[i]] = i
+        }
+        return ans
+    }
+}
+```
+
+##### [1402. 做菜顺序](https://leetcode.cn/problems/reducing-dishes/description/)
+
+> 排序后贪心
+
+``` swift
+class Solution {
+    func maxSatisfaction(_ satisfaction: [Int]) -> Int {
+        let s = satisfaction.sorted(by: >)
+        // 优先做满意度高的菜
+        var ans = 0, sum = 0
+        for item in s {
+            sum += item
+            if sum < 0 {
+                break
+            }
+            // 前缀和小于0，ans值达到峰值后开始下降
+            ans += sum
         }
         return ans
     }
