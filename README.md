@@ -568,3 +568,31 @@ class Solution {
 }
 ```
 
+#### 11、动态规划
+
+##### [1155. 掷骰子等于目标和的方法数](https://leetcode.cn/problems/number-of-dice-rolls-with-target-sum/description/)
+
+> dfs(i,j) 表示用 i 个骰子掷出数字之和恰好等于 j 的方案数， dfs(i,j)=dfs(i−1,j−1)+dfs(i−1,j−2)+⋯+dfs(i−1,j−k)，边界情况，dfs(0,0) = 1，j<0 为0，i=0,j>0 为0，
+
+``` swift
+class Solution {
+    func numRollsToTarget(_ n: Int, _ k: Int, _ target: Int) -> Int {
+        if target < n || target > n*k {
+            return 0
+        }
+        var arr = Array(repeating: Array(repeating: 0, count: target-n+1),count: n+1)
+        arr[0][0] = 1
+        for i in 1...n {
+            for j in 0...target-n {
+                var x = 0
+                while x < k, x <= j {
+                    arr[i][j] = (arr[i][j] + arr[i-1][j-x]) % Int(1e9+7)
+                    x += 1
+                }
+            }
+        }
+        return arr[n][target-n]
+    }
+}
+```
+
