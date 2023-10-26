@@ -596,3 +596,41 @@ class Solution {
 }
 ```
 
+#### 12、回溯
+
+##### [2698. 求一个整数的惩罚数](https://leetcode.cn/problems/find-the-punishment-number-of-an-integer/description/)
+
+> 要点就是求子集组合
+
+``` swift
+class Solution {
+    func punishmentNumber(_ n: Int) -> Int {
+        var ans = 0
+        for i in 1...n {
+            if dfs(i * i, i) {
+                ans += i * i
+            }
+        }
+        return ans
+    }
+    
+    func dfs(_ t: Int, _ x: Int) -> Bool {
+        if t == x {
+            return true
+        }
+        var d = 10
+        // 依次判断的是 129 6
+        // 12 9 6
+        // 1 2 9 6
+        // 1 29 6
+        while t >= d && t % d <= x {
+            if dfs(t / d, x - (t % d)) {
+                return true
+            }
+            d *= 10
+        }
+        return false
+    }
+}
+```
+
